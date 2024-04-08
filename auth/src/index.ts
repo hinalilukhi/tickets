@@ -7,8 +7,7 @@ import { currentUserRouter } from "../routes/current-user";
 import { signupRouter } from "../routes/signup";
 import { signoutRouter } from "../routes/signout";
 import { signinRouter } from "../routes/signin";
-import { errorHandler } from "../middleware/error-handler";
-import { NotFoundError } from "../errors/not-found-error";
+import { errorHandler, NotFoundError } from "@hgtick/common";
 import  mongoose from 'mongoose';
 
 const app = express();

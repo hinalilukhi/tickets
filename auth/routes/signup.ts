@@ -1,11 +1,8 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from 'express-validator';
-import { DatabaseConnectionError } from "../errors/database-connection-error";
-import { RequestValidationError } from "../errors/request-validator-errros";
+import { DatabaseConnectionError, RequestValidationError, BadRequestError, validationRequest } from "@hgtick/common";
 import { User } from "../models/user";
-import { BadRequestError } from "../errors/bad-request-error";
 import jwt from "jsonwebtoken";
-import { validationRequest } from "../middleware/validate-request";
 
 const router = express.Router();
 router.post("/api/users/signup",
