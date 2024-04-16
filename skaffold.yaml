@@ -32,3 +32,11 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    - image: us.gcr.io/celtic-rite-417209/order
+      context: order
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
