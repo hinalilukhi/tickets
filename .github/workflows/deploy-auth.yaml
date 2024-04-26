@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cd auth && docker build -t hinalilukhi/auth .
-      
       - uses: docker/login-action@v1 
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
