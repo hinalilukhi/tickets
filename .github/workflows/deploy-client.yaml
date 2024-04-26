@@ -1,11 +1,11 @@
-name: deploy-expiration
+name: deploy-client
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'expiration/**'
+      - 'client/**'
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: cd expiration && docker build -t hinalilukhi/expiration .
-      - run: docker push hinalilukhi/expiration
+      - run: cd client && docker build -t hinalilukhi/client .
+      - run: docker push hinalilukhi/client
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save 86111ba4-b5c4-4c98-a38c-2d7e142b862c
-      - run: kubectl rollout restart deployment expiration-depl
+      - run: kubectl rollout restart deployment client-depl
