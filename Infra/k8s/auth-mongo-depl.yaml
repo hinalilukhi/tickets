@@ -13,7 +13,7 @@ spec:
         app: auth-mongo
     spec:
       containers:
-        - name: auth-mong
+        - name: auth-mongo
           image: mongo
 ---
 apiVersion: v1
