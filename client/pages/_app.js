@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useState, useEffect } from 'react';
 import buildClient from '../api/build-client';
 import Header from '../components/header';
+import axios from 'axios';
 
 const MyApp = ({ Component, pageProps }) => {
   const [currentUser, setCurrentUser] = useState(null);

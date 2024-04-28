@@ -7,20 +7,35 @@ on:
     paths:
       - 'auth/**'
 
-jobs:
-  build:
-      runs-on: ubuntu-latest 
-      steps: 
-          - uses: actions/checkout@v2 
-          - run: cd auth && docker build -t hinalilukhi/auth .
-          - 
-            uses: docker/login-action@v1 
-            with: 
-                username: ${{ secrets.DOCKER_USERNAME }}
-                password: ${{ secrets.DOCKERHUB_TOKEN }} 
-          - run: docker push hinalilukhi/auth
-          - uses: digitalocean/action-doctl@v2
-            with:
-              token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          - run: doctl kubernetes cluster kubeconfig save 86111ba4-b5c4-4c98-a38c-2d7e142b862c
-          - run: kubectl rollout restart deployment auth-depl
+steps:
+# Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/celtic-rite-417209/auth', '.' ]
+    id: 'Build Docker Image'
+    
+  # Step 2: Push the Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/celtic-rite-417209/auth']
+    id: 'Push Docker Image'
+
+  # Step 3: Set the Kubernetes context
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['config', 'set', 'context', 'gke_celtic-rite-417209_europe-west3_tickets-dev']
+    id: 'Set Kubectl Context'
+
+  # Step 4: Update the Kubernetes deployment with the new image
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['set', 'image', 'deployment/auth-depl', 'tickets-dev=gcr.io/celtic-rite-417209/auth']
+    id: 'Update Kubernetes Deployment'
+    env:
+    - 'CLOUDSDK_COMPUTE_ZONE=ZONE'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=CLUSTER_NAME'
+    
+  # Step 5: Verify the deployment
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['rollout', 'status', 'deployment/auth-depl']
+    id: 'Verify Deployment'
+    
+options:
+  machineType: 'N1_HIGHCPU_8'
+  substitutionOption: ALLOW_LOOSE
