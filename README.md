@@ -1,1 +1,1 @@
-This application is design with the purpose of learning microservice architecture for business critical application
+This application is design with the purpose of learning microservice architecture concept.
