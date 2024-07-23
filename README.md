@@ -1,11 +1,11 @@
 This application is design with the purpose of learning microservice architecture concept.
 
 **Technology stack**
-**Frontend Technology :** TypeScript, Next.js
-**Backend Technology :** Node.js, Express.js
-**Databases :** MongoDB, Reddis
-**DevOps :** Docker, Kubernets, CI/CD pipeline
-**Message Brocker:** Node nats
+1) **Frontend Technology :** TypeScript, Next.js
+2) **Backend Technology :** Node.js, Express.js
+3) **Databases :** MongoDB, Reddis
+4) **DevOps :** Docker, Kubernets, CI/CD pipeline
+5) **Message Brocker:** Node nats
 
 Number of microservices created are : Auth, Client, Expiration, Order, Payment, Tickets
 
